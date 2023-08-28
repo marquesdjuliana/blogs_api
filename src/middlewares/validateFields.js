@@ -1,4 +1,4 @@
-const mapStatusHTTP = require("../utils/mapStatusHTTP");
+const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 const validateLogin = (req, res, next) => {
   const { email, password } = req.body;
@@ -8,7 +8,6 @@ const validateLogin = (req, res, next) => {
   }
   next();
 };
-
 
 module.exports = {
   validateLogin,
