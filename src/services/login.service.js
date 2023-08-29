@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { generateToken } = require('../utils/authenticateToken');
 
 const verifyUser = async (params) => {
   const { email, password } = params;
@@ -8,13 +8,7 @@ const verifyUser = async (params) => {
   if (!user || password !== user.password) { 
     return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
 }
-  const token = jwt.sign({
-    email,
-  }, process.env.JWT_SECRET, {
-    expiresIn: '1h',
-    algorithm: 'HS256',
-  });
- 
+ const token = generateToken({ email });
   return { status: 'SUCCESSFUL', data: { token } };
 };
 

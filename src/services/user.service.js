@@ -1,4 +1,3 @@
-// const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { generateToken } = require('../utils/authenticateToken');
 
