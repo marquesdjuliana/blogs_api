@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { generateToken } = require('../utils/authenticateToken');
 
 const createUser = async (newUserDetails) => {
   const existingUser = await User.findOne({ where: { email: newUserDetails.email } });
@@ -9,17 +10,15 @@ const createUser = async (newUserDetails) => {
   }
   const newUser = await User.create(newUserDetails);
   if (newUser) {
-    const token = jwt.sign(
-      { email: newUserDetails.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1h',
-        algorithm: 'HS256',
-      },
-    );
+      const token = generateToken({ email: newUserDetails.email });
     return { status: 'CREATED', data: { token } };
   }
 };
+const listAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return { status: 'SUCCESSFUL', data: users };
+};
 module.exports = {
   createUser,
+  listAllUsers,
 };
