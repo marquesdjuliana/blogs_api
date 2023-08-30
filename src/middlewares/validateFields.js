@@ -27,7 +27,15 @@ const validateUser = (req, res, next) => {
 
   next();
 };
+const validateCategory = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(mapStatusHTTP('BAD_REQUEST')).json({ message: '"name" is required' });
+  }
+  next();
+};
 module.exports = {
   validateLogin,
   validateUser,
+  validateCategory,
 };
