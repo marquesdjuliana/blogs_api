@@ -6,7 +6,11 @@ const createCategory = async (req, res) => {
   const { status, data } = await categoriesService.createCategory(newCategory);
   return res.status(mapStatusHTTP(status)).json(data);
 };
-
+const listAllCategories = async (req, res) => {
+  const { status, data } = await categoriesService.listAllCategories();
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 module.exports = {
   createCategory,
+  listAllCategories,
 };
