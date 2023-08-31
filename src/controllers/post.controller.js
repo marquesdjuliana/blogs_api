@@ -11,7 +11,13 @@ const createPost = async (req, res) => {
   const { status, data } = await postService.createPost(postData, userId);
   return res.status(mapStatusHTTP(status)).json(data);
 };
+const listPostById = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await postService.listById(id);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 module.exports = {
   listAllPosts,
   createPost,
+  listPostById,
 };
