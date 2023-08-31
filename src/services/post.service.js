@@ -11,13 +11,11 @@ const listAllPosts = async () => {
 
   return { status: 'SUCCESSFUL', data: posts };
 };
-
 const insertPostCategories = async (postId, categoryIds) => {
   const insertionPromises = categoryIds
   .map((categoryId) => PostCategory.create({ postId, categoryId }));
   await Promise.all(insertionPromises);
 };
-
 const createPost = async (postInfo, userId) => {
   const { title, content, categoryIds } = postInfo;
 
@@ -51,7 +49,6 @@ const listById = async (id) => {
   });
 
   if (!post) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
-  
   return { status: 'SUCCESSFUL', data: post };
 };
 module.exports = {
