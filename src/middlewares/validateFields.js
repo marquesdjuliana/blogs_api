@@ -1,6 +1,6 @@
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 const { verifyFields } = require('../validations/verifyFields');
-const { userSchema } = require('../validations/schemas');
+const { userSchema, postSchema } = require('../validations/schemas');
 
 const validateLogin = (req, res, next) => {
   const { email, password } = req.body;
@@ -34,8 +34,18 @@ const validateCategory = (req, res, next) => {
   }
   next();
 };
+const validatePost = (req, res, next) => {
+  const post = req.body;
+  const keys = ['title', 'content', 'categoryIds'];
+  const allInfo = verifyFields(keys, post);
+  if (!allInfo) return res.status(400).json({ message: 'Some required fields are missing' });
+  const { error } = postSchema.validate(post);
+  if (error) return res.status(400).json({ message: error.message });
+  next();
+};
 module.exports = {
   validateLogin,
   validateUser,
   validateCategory,
+  validatePost,
 };

@@ -1,10 +1,6 @@
-const { Category, User, BlogPost } = require('../models');
+const { Category, User, BlogPost, PostCategory } = require('../models');
+const { verifyCategoryIds } = require('../validations/verifyFields');
 
-// const createCategory = async (category) => {
-//   const newCategory = await Category.create(category);
-//   const data = { id: newCategory.dataValues.id, ...category };
-//   return { status: 'CREATED', data };
-// };
 const listAllPosts = async () => {
   const posts = await BlogPost.findAll(
     { include: [
@@ -16,7 +12,28 @@ const listAllPosts = async () => {
   return { status: 'SUCCESSFUL', data: posts };
 };
 
+const insertPostCategories = async (postId, categoryIds) => {
+  const insertionPromises = categoryIds
+  .map((categoryId) => PostCategory.create({ postId, categoryId }));
+  await Promise.all(insertionPromises);
+};
+
+const createPost = async (postInfo, userId) => {
+  const { title, content, categoryIds } = postInfo;
+
+  const areCategoriesValid = await verifyCategoryIds(categoryIds);
+  if (!areCategoriesValid) {
+    return { status: 'BAD_REQUEST', data: { message: 'one or more "categoryIds" not found' } };
+  }
+  const currentDate = new Date().toISOString();
+  const newPostData = { title, content, userId, published: currentDate, updated: currentDate };
+  const createdPost = await BlogPost.create(newPostData);
+  if (createdPost) {
+    await insertPostCategories(createdPost.id, categoryIds);
+    return { status: 'CREATED', data: createdPost };
+  }
+};
 module.exports = {
-  // createCategory,
   listAllPosts,
+  createPost,
 };

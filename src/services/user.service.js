@@ -9,7 +9,7 @@ const createUser = async (newUserDetails) => {
   }
   const newUser = await User.create(newUserDetails);
   if (newUser) {
-      const token = generateToken({ email: newUserDetails.email });
+      const token = generateToken({ id: newUser.dataValues.id, email: newUserDetails.email });
     return { status: 'CREATED', data: { token } };
   }
 };

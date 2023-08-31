@@ -5,7 +5,13 @@ const listAllPosts = async (req, res) => {
   const { status, data } = await postService.listAllPosts();
   return res.status(mapStatusHTTP(status)).json(data);
 };
-
+const createPost = async (req, res) => {
+  const postData = req.body;
+  const { id: userId } = req.user;
+  const { status, data } = await postService.createPost(postData, userId);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 module.exports = {
   listAllPosts,
+  createPost,
 };

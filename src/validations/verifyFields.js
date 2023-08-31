@@ -1,3 +1,5 @@
+const { Category } = require('../models');
+
 const verifyFields = (requiredFields, requestBody) => {
   for (let i = 0; i < requiredFields.length; i += 1) {
     const field = requiredFields[i];
@@ -8,6 +10,16 @@ const verifyFields = (requiredFields, requestBody) => {
   return true;
 };
 
+const verifyCategoryIds = async (categories) => {
+  const categoryQueries = categories.map(async (categoryId) => {
+    const queriedCategory = await Category.findOne({ where: { id: categoryId } });
+    return queriedCategory !== null;
+  });
+
+  const categoryResults = await Promise.all(categoryQueries);
+  return categoryResults.every((result) => result);
+};
 module.exports = {
   verifyFields,
+  verifyCategoryIds,
 };

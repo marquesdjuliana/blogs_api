@@ -8,7 +8,7 @@ const verifyUser = async (params) => {
   if (!user || password !== user.password) { 
     return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
 }
- const token = generateToken({ email });
+ const token = generateToken({ id: user.id, email });
   return { status: 'SUCCESSFUL', data: { token } };
 };
 
