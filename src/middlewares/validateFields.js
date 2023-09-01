@@ -35,17 +35,26 @@ const validateCategory = (req, res, next) => {
   next();
 };
 const validatePost = (req, res, next) => {
-  const post = req.body;
-  const keys = ['title', 'content', 'categoryIds'];
-  const allInfo = verifyFields(keys, post);
-  if (!allInfo) return res.status(400).json({ message: 'Some required fields are missing' });
-  const { error } = postSchema.validate(post);
+  const postData = req.body;
+  const postKeys = ['title', 'content', 'categoryIds'];
+  const allInfoPresent = verifyFields(postKeys, postData);
+  if (!allInfoPresent) return res.status(400).json({ message: 'Some required fields are missing' });
+  const { error } = postSchema.validate(postData);
   if (error) return res.status(400).json({ message: error.message });
   next();
 };
+const validateUpdatePostById = (req, res, next) => {
+  const post = req.body;
+  const postKeys = ['title', 'content'];
+  const allInfoPresent = verifyFields(postKeys, post);
+  if (!allInfoPresent) return res.status(400).json({ message: 'Some required fields are missing' });
+  next();
+};
+
 module.exports = {
   validateLogin,
   validateUser,
   validateCategory,
   validatePost,
+  validateUpdatePostById,
 };
