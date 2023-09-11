@@ -17,3 +17,4 @@ Este é um projeto desenvolvido durante o módulo de Back-End, na **Trybe**. **B
 Sinta-se à vontade para explorar este projeto e acompanhar meu crescimento. Se tiver alguma sugestão, feedback ou quiser trocar conhecimentos, será um prazer conectar com você no LinkedIn!
 
 
+# :construction: README em construção ! :construction:
