@@ -11,8 +11,7 @@ Este é um projeto desenvolvido durante o módulo de Back-End, na **Trybe**. **B
 - ORM - Associations 1:1 e 1:N
 
 **Soft Skills** desenvolvidas:
-- Administração de tempo
-- Inteligência emocional na resolução de problemas
+- Gerenciamento de tempo: definir prioridades e cumprir prazos no projeto.
 
 Sinta-se à vontade para explorar este projeto e acompanhar meu crescimento. Se tiver alguma sugestão, feedback ou quiser trocar conhecimentos, será um prazer conectar com você no LinkedIn!
 
